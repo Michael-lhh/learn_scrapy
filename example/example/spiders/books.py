@@ -1,5 +1,7 @@
 import scrapy
 
+from example.items import BookItem
+
 class BookSpider(scrapy.Spider):
 
   name = 'books'
@@ -7,7 +9,8 @@ class BookSpider(scrapy.Spider):
   start_urls = ['https://books.toscrape.com/']
 
   def parse(self, response):
-
+    
+    '''
     for book in response.css('article.product_pod'):
         # name = book.xpath('./h3/a/@title').extract_first()
         name = book.css('h3>a::attr(title) ').extract_first()
@@ -20,6 +23,18 @@ class BookSpider(scrapy.Spider):
             'status': status,
             'stars': stars,
         }
+    '''
+
+    for sel in response.css('article.product_pod'):
+        book = BookItem()
+        book['name'] = sel.xpath('./h3/a/@title').extract_first() 
+        book['price'] = sel.css('p.price_color::text').extract_first()
+        
+        yield {
+            'name': book['name'],
+            'price': book['price'],
+        }
+ 
 
     next_url = response.css('ul.pager li.next a::attr(href)').extract_first()
 

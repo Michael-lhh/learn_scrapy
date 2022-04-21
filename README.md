@@ -14,6 +14,7 @@ response.css('article.product_pod').css('h3 > a::attr(title) ').extract_first()
 
 extract_first(): extract the first node or first text error may happen if deserve msg at second position
 
-
+## 22/04/2022
+Add item and field
 
 
