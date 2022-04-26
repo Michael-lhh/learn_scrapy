@@ -1,6 +1,7 @@
 import scrapy
 
 from example.items import BookItem
+from scrapy.linkextractors import LinkExtractor
 
 class BookSpider(scrapy.Spider):
 
